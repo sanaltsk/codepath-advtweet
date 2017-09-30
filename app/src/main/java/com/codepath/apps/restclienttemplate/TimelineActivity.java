@@ -1,10 +1,13 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
     // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
     private Long lastTweetId = 0L;
@@ -90,5 +93,34 @@ public class TimelineActivity extends AppCompatActivity {
                 throwable.printStackTrace();
             }
         }, lastTweetId);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.twittermenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.miCompose) {
+            composeMessage();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void composeMessage() {
+        Log.d("debug","compose");
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeFragment composeFragment = ComposeFragment.newInstance();
+        composeFragment.show(fm, "fragment_compose");
+
+    }
+
+    @Override
+    public void onFinishTweetCompose(Tweet tweet) {
+        tweets.add(0,tweet);
+        adapter.notifyDataSetChanged();
     }
 }
