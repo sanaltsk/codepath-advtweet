@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
+import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
-
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private Long lastTweetId = 0L;
     private TwitterClient client;
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
@@ -39,8 +42,19 @@ public class TimelineActivity extends AppCompatActivity {
         adapter = new TweetAdapter(tweets);
 
         //recyclerview setup (layoutmanger,use adapter)
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
         rvTweets.setAdapter(adapter);
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                populateTimeline();
+            }
+        };
+        rvTweets.addOnScrollListener(scrollListener);
         populateTimeline();
     }
 
@@ -55,6 +69,9 @@ public class TimelineActivity extends AppCompatActivity {
                     try {
                         //conver each object to tweet model
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
+                        if(i==response.length()-1) {
+                            lastTweetId = tweet.uid;
+                        }
                         //add the tweetmodel  to our datasource
                         tweets.add(tweet);
                         //notify adapter
@@ -72,6 +89,6 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("debug", errorResponse.toString());
                 throwable.printStackTrace();
             }
-        });
+        }, lastTweetId);
     }
 }

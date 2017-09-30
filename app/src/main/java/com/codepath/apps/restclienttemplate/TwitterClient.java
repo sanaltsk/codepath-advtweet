@@ -9,6 +9,8 @@ import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import static android.R.attr.max;
+
 /*
  * 
  * This is the object responsible for communicating with a REST API. 
@@ -43,10 +45,13 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 	// CHANGE THIS
 	// DEFINE METHODS for different API endpoints here
-	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
+	public void getHomeTimeline(AsyncHttpResponseHandler handler, Long lastTweetId) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
+        if(lastTweetId!=0) {
+            params.put("max_id", lastTweetId);
+        }
 		params.put("count",25);
 		params.put("since_id",1);
 		params.put("format", "json");
