@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
@@ -37,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    private FloatingActionButton fabCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
             }
         };
         rvTweets.addOnScrollListener(scrollListener);
+        fabCompose = (FloatingActionButton) findViewById(R.id.fabCompose);
+        fabCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                composeMessage();
+            }
+        });
         populateTimeline();
     }
 

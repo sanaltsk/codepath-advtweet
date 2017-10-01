@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class DetailTweetActivity extends AppCompatActivity {
             TextView tvTweetDetailTime = (TextView) findViewById(R.id.tvTweetDetailTime);
             TextView tvTweetDetailBody = (TextView) findViewById(R.id.tvTweetDetailBody);
             ImageView ivTweetDetailProfileImage = (ImageView)findViewById(R.id.ivTweetDetailProfileImage);
-            ImageButton btnReply = (ImageButton) findViewById(R.id.btnReply);
+            FloatingActionButton fabReply = (FloatingActionButton) findViewById(R.id.fabReply);
 
             tvTweetDetailName.setText(tweet.user.name);
             tvTweetDetailUsername.setText(tweet.user.screenName);
@@ -65,7 +66,7 @@ public class DetailTweetActivity extends AppCompatActivity {
                     .load(tweet.user.profileImageUrl)
                     .into(ivTweetDetailProfileImage);
 
-            btnReply.setOnClickListener(new View.OnClickListener() {
+            fabReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentManager fm = getSupportFragmentManager();
