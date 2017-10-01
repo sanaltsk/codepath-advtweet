@@ -34,6 +34,7 @@ public class ComposeFragment extends DialogFragment {
     private Button btnTweet;
     private TwitterClient client;
     private ImageView ivProfileImage;
+    private TextView tvName;
     private TextView tvUsername;
     private User user;
     private TextView tvCharCount;
@@ -60,6 +61,7 @@ public class ComposeFragment extends DialogFragment {
 
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         btnTweet = (Button) view.findViewById(R.id.btnTweet);
+        tvName = (TextView) view.findViewById(R.id.tvName);
         tvUsername = (TextView)view.findViewById(R.id.tvFragmentUserName);
         ivProfileImage = (ImageView) view.findViewById(R.id.ivFragmentProfileImage);
         tvCharCount = (TextView)view.findViewById(R.id.tvCharCount);
@@ -74,7 +76,8 @@ public class ComposeFragment extends DialogFragment {
                     user.name = response.getString("name");
                     user.screenName = response.getString("screen_name");
                     user.profileImageUrl = response.getString("profile_image_url");
-                    tvUsername.setText(user.screenName);
+                    tvName.setText(user.name);
+                    tvUsername.setText("@"+user.screenName);
                     Glide.with(getContext())
                             .load(user.profileImageUrl)
                             .into(ivProfileImage);
