@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.os.Parcelable;
+
 import com.codepath.apps.restclienttemplate.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.Database;
@@ -11,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.io.Serializable;
+
 /**
  * Created by sanal on 9/28/17.
  */
@@ -18,7 +22,7 @@ import org.parceler.Parcel;
 
 @Table(database = MyDatabase.class)
 @Parcel(analyze = {User.class})
-public class User extends BaseModel{
+public class User extends BaseModel implements Serializable{
     @Column
     public String name;
 
@@ -31,6 +35,7 @@ public class User extends BaseModel{
 
     @Column
     public String profileImageUrl;
+
 
     //deserialize
     public static User fromJSON(JSONObject jsonObject) throws JSONException {
@@ -61,4 +66,12 @@ public class User extends BaseModel{
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
+
+//    @Override
+//    public void writeToParcel(android.os.Parcel dest, int flags) {
+//        dest.writeString(name);
+//        dest.writeLong(uid);
+//        dest.writeString(screenName);
+//        dest.writeString(profileImageUrl);
+//    }
 }

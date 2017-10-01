@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +30,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
+
+import static android.R.attr.maxLength;
 
 
 public class ComposeFragment extends DialogFragment {
@@ -38,6 +44,7 @@ public class ComposeFragment extends DialogFragment {
     private TextView tvUsername;
     private User user;
     private TextView tvCharCount;
+    private TextView tvComposeTitle;
     public ComposeFragment() {
     }
 
@@ -47,15 +54,19 @@ public class ComposeFragment extends DialogFragment {
         return inflater.inflate(R.layout.fragment_compose,container);
     }
 
-    public static ComposeFragment newInstance() {
+    public static ComposeFragment newInstance(String replyTo) {
         
         Bundle args = new Bundle();
         ComposeFragment fragment = new ComposeFragment();
+        args.putString("replyTo", replyTo);
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        String replyTo = getArguments().getString("replyTo");
+
         super.onViewCreated(view, savedInstanceState);
         client = TwitterApp.getRestClient();
 
@@ -65,7 +76,17 @@ public class ComposeFragment extends DialogFragment {
         tvUsername = (TextView)view.findViewById(R.id.tvFragmentUserName);
         ivProfileImage = (ImageView) view.findViewById(R.id.ivFragmentProfileImage);
         tvCharCount = (TextView)view.findViewById(R.id.tvCharCount);
-
+        tvComposeTitle = (TextView)view.findViewById(R.id.tvComposeTitle);
+        if(!TextUtils.isEmpty(replyTo)){
+            String reply = "@"+replyTo;
+            etStatus.setText(reply+" ");
+            etStatus.setSelection(etStatus.getText().length());
+            tvComposeTitle.setText("Reply " + reply);
+            int remainingChar = 140-reply.length()-1;
+            tvCharCount.setText(remainingChar+"");
+        } else {
+            tvComposeTitle.setText("Compose");
+        }
         client.verifyCredentials(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

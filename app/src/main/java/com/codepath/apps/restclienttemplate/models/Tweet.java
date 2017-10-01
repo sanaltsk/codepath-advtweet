@@ -1,5 +1,8 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.codepath.apps.restclienttemplate.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
@@ -10,13 +13,15 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by sanal on 9/28/17.
  */
 
 @Table(database = MyDatabase.class)
 
-public class Tweet extends BaseModel{
+public class Tweet extends BaseModel implements Serializable{
     @Column
     public String body;
 
@@ -62,4 +67,13 @@ public class Tweet extends BaseModel{
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
+
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(body);
+//        dest.writeLong(uid);
+//        dest.writeString(createdAt);
+//        dest.writeParcelable(user,flags);
+//    }
 }
