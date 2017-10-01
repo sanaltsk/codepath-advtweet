@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.text.ParseException;
@@ -34,7 +36,7 @@ public class DetailTweetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_tweet);
 
 //        Tweet tweet = (Tweet) getIntent().getParcelableExtra("tweet");
-        Tweet tweet = (Tweet) getIntent().getSerializableExtra("tweet");
+        Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         if(tweet!=null) {
             Log.d("debug",tweet.toString());
 

@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 
 @Table(database = MyDatabase.class)
-@Parcel(analyze = {User.class})
+@Parcel
 public class User extends BaseModel implements Serializable{
     @Column
     public String name;
@@ -36,6 +36,8 @@ public class User extends BaseModel implements Serializable{
     @Column
     public String profileImageUrl;
 
+    public User() {
+    }
 
     //deserialize
     public static User fromJSON(JSONObject jsonObject) throws JSONException {

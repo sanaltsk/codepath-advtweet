@@ -15,6 +15,8 @@ import com.codepath.apps.restclienttemplate.DetailTweetActivity;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import org.parceler.Parcels;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -86,7 +88,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             if(position!=RecyclerView.NO_POSITION) {
                 Tweet selectedTweet = mTweets.get(position);
                 Intent intent = new Intent(v.getContext(), DetailTweetActivity.class);
-                intent.putExtra("tweet", selectedTweet);
+                intent.putExtra("tweet", Parcels.wrap(selectedTweet));
                 v.getContext().startActivity(intent);
             }
         }

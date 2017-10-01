@@ -1,7 +1,6 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -15,6 +14,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ import java.io.Serializable;
  */
 
 @Table(database = MyDatabase.class)
-
+@Parcel
 public class Tweet extends BaseModel implements Serializable {
     @Column
     public String body;
@@ -43,6 +43,9 @@ public class Tweet extends BaseModel implements Serializable {
     @Nullable
     @ForeignKey(saveForeignKeyModel = false)
     public Media media;
+
+    public Tweet() {
+    }
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject)  {

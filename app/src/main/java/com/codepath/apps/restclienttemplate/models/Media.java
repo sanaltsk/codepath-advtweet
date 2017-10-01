@@ -8,6 +8,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 
 @Table(database = MyDatabase.class)
+@Parcel
 public class Media extends BaseModel implements Serializable{
     @PrimaryKey
     @Column
@@ -49,6 +51,9 @@ public class Media extends BaseModel implements Serializable{
 
     public String getMediaUrl() {
         return mediaUrl;
+    }
+
+    public Media() {
     }
 
     public static Media fromJSON(JSONObject jsonObject) throws JSONException {

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="13dp"
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textStyle="bold"
         android:layout_alignTop="@+id/ivProfileImage"
         android:layout_alignStart="@+id/tvBody" />
 
@@ -26,7 +28,7 @@
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivProfileImage"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/tvFragmentUserName"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
@@ -37,8 +39,8 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="10sp"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/tvFragmentUserName"
-        android:layout_alignParentEnd="true" />
+        android:text="TextView"
+        android:textSize="10sp" />
 </RelativeLayout>
