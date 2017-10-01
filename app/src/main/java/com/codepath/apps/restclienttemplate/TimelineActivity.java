@@ -1,5 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +15,17 @@ import android.view.MenuItem;
 import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -62,37 +69,44 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
     }
 
     private void populateTimeline() {
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.d("debug", response.toString());
-                //iterate through json array
-                for(int i=0;i<response.length();i++) {
-                    //for each entry deserialise the item
-                    try {
-                        //conver each object to tweet model
-                        Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
-                        if(i==response.length()-1) {
-                            lastTweetId = tweet.uid;
+        if (isNetworkAvailable()) {
+            client.getHomeTimeline(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                    Log.d("debug", response.toString());
+                    //iterate through json array
+                    for (int i = 0; i < response.length(); i++) {
+                        //for each entry deserialise the item
+                        try {
+                            //conver each object to tweet model
+                            Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
+                            if (i == response.length() - 1) {
+                                lastTweetId = tweet.uid;
+                            }
+                            //add the tweetmodel  to our datasource
+                            tweet.user.save();
+                            tweet.save();
+                            tweets.add(tweet);
+                            //notify adapter
+                            adapter.notifyItemInserted(tweets.size() - 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        //add the tweetmodel  to our datasource
-                        tweets.add(tweet);
-                        //notify adapter
-                        adapter.notifyItemInserted(tweets.size() -1 );
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
                 }
 
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                Log.d("debug", errorResponse.toString());
-                throwable.printStackTrace();
-            }
-        }, lastTweetId);
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                    Log.d("debug", errorResponse.toString());
+                    throwable.printStackTrace();
+                }
+            }, lastTweetId);
+        }
+        else {
+            List<Tweet> tweetList = SQLite.select().from(Tweet.class).queryList();
+            Collections.reverse(tweetList);
+            tweets.addAll(tweetList);
+        }
     }
 
     @Override
@@ -122,5 +136,12 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
     public void onFinishTweetCompose(Tweet tweet) {
         tweets.add(0,tweet);
         adapter.notifyDataSetChanged();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
