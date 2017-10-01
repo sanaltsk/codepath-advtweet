@@ -2,6 +2,8 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -10,6 +12,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +24,7 @@ import java.io.Serializable;
 
 @Table(database = MyDatabase.class)
 
-public class Tweet extends BaseModel implements Serializable{
+public class Tweet extends BaseModel implements Serializable {
     @Column
     public String body;
 
@@ -36,15 +39,33 @@ public class Tweet extends BaseModel implements Serializable{
     @Column
     public String createdAt;
 
+    @Column
+    @Nullable
+    @ForeignKey(saveForeignKeyModel = false)
+    public Media media;
+
     //deserialize the JSON
-    public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
+    public static Tweet fromJSON(JSONObject jsonObject)  {
         Tweet tweet = new Tweet();
         //extract the values from JSON
 
-        tweet.body = jsonObject.getString("text");
-        tweet.uid = jsonObject.getLong("id");
-        tweet.createdAt = jsonObject.getString("created_at");
-        tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+        try {
+            tweet.body = jsonObject.getString("text");
+            tweet.uid = jsonObject.getLong("id");
+            tweet.createdAt = jsonObject.getString("created_at");
+            tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+            JSONObject objExtMedias = jsonObject.getJSONObject("extended_entities");
+            if(objExtMedias!=null) {
+                JSONArray jsonMedias = objExtMedias.getJSONArray("media");
+                if(jsonMedias != null ) {
+                    tweet.media = Media.fromJSON(jsonMedias.getJSONObject(0));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("Debug","Tweets " + tweet.toString());
+
         return tweet;
     }
 
@@ -68,12 +89,18 @@ public class Tweet extends BaseModel implements Serializable{
         this.createdAt = createdAt;
     }
 
+    public void setMedia(Media media) {
+        this.media = media;
+    }
 
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(body);
-//        dest.writeLong(uid);
-//        dest.writeString(createdAt);
-//        dest.writeParcelable(user,flags);
-//    }
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "body='" + body + '\'' +
+                ", uid=" + uid +
+                ", user=" + user +
+                ", createdAt='" + createdAt + '\'' +
+                ", media=" + media +
+                '}';
+    }
 }

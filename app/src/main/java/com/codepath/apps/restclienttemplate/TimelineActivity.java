@@ -84,6 +84,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
                                 lastTweetId = tweet.uid;
                             }
                             //add the tweetmodel  to our datasource
+                            if(tweet.media!=null) {
+                                tweet.media.save();
+                            }
                             tweet.user.save();
                             tweet.save();
                             tweets.add(tweet);

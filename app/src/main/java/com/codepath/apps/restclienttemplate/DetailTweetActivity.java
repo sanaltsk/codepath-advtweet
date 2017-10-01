@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +21,9 @@ import org.w3c.dom.Text;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import static com.codepath.apps.restclienttemplate.R.id.ivTweetDetailProfileImage;
+import static com.codepath.apps.restclienttemplate.R.id.tvTweetDetailName;
 
 public class DetailTweetActivity extends AppCompatActivity {
     TextView tvTweetDetailUsername;
@@ -32,6 +37,16 @@ public class DetailTweetActivity extends AppCompatActivity {
         Tweet tweet = (Tweet) getIntent().getSerializableExtra("tweet");
         if(tweet!=null) {
             Log.d("debug",tweet.toString());
+
+            if(tweet.media!=null) {
+                if(tweet.media.getType().equals("photo")) {
+                    ImageView ivTweetDetailMedia = (ImageView)findViewById(R.id.ivMedia);
+                    Glide.with(getApplicationContext())
+                            .load(tweet.media.getMediaUrl())
+                            .fitCenter()
+                            .into(ivTweetDetailMedia);
+                }
+            }
 
             TextView tvTweetDetailName = (TextView)findViewById(R.id.tvTweetDetailName);
             tvTweetDetailUsername = (TextView) findViewById(R.id.tvTweetDetailUsername);

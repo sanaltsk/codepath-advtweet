@@ -74,4 +74,14 @@ public class User extends BaseModel implements Serializable{
 //        dest.writeString(screenName);
 //        dest.writeString(profileImageUrl);
 //    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", uid=" + uid +
+                ", screenName='" + screenName + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                '}';
+    }
 }
