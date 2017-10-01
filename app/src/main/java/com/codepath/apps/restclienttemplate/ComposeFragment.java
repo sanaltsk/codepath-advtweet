@@ -1,7 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -32,10 +35,10 @@ import java.util.Locale;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.util.TextUtils;
 
-import static android.R.attr.maxLength;
-
+import static android.system.Os.remove;
 
 public class ComposeFragment extends DialogFragment {
+    private SharedPreferences pref;
     private EditText etStatus;
     private Button btnTweet;
     private TwitterClient client;
@@ -63,6 +66,13 @@ public class ComposeFragment extends DialogFragment {
         return fragment;
     }
 
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("tweet", etStatus.getText().toString());
+        edit.commit();
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -86,6 +96,14 @@ public class ComposeFragment extends DialogFragment {
         ivProfileImage = (ImageView) view.findViewById(R.id.ivFragmentProfileImage);
         tvCharCount = (TextView)view.findViewById(R.id.tvCharCount);
         tvComposeTitle = (TextView)view.findViewById(R.id.tvComposeTitle);
+
+        pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String savedTweet = pref.getString("tweet","none");
+        if(!savedTweet.equals("none")) {
+            etStatus.setText(savedTweet);
+            etStatus.setSelection(savedTweet.length());
+        }
+
         if(!TextUtils.isEmpty(replyTo)){
             String reply = "@"+replyTo;
             etStatus.setText(reply+" ");
@@ -133,6 +151,7 @@ public class ComposeFragment extends DialogFragment {
                         Tweet tweet = new Tweet();
                         tweet.user = user;
                         tweet.body = updateStatus;
+
                         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
                         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
                         Date dt = new Date();
@@ -140,6 +159,9 @@ public class ComposeFragment extends DialogFragment {
                         Toast.makeText(getContext(),"Tweet posted successfully!",Toast.LENGTH_LONG).show();
                         Log.d("debug","Posted successfully" + tweet.toString());
                         OnSuccessTweetUpdate listener = (OnSuccessTweetUpdate)getActivity();
+                        SharedPreferences.Editor edite = pref.edit();
+                        edite.remove("tweet");
+                        edite.commit();
                         listener.onFinishTweetCompose(tweet);
                         dismiss();
                     }
