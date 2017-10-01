@@ -44,10 +44,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/etStatus"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="29dp"
         android:layout_marginTop="62dp"
         android:background="@android:color/holo_blue_light"
         android:text="Tweet" />
+
+    <TextView
+        android:id="@+id/tvCharCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="140"
+        android:layout_alignTop="@+id/btnTweet"
+        android:layout_toStartOf="@+id/btnTweet"
+        android:layout_marginEnd="36dp" />
 
 
 </RelativeLayout>

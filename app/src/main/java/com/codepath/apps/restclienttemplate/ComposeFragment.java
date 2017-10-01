@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class ComposeFragment extends DialogFragment {
     private ImageView ivProfileImage;
     private TextView tvUsername;
     private User user;
+    private TextView tvCharCount;
     public ComposeFragment() {
     }
 
@@ -60,7 +62,7 @@ public class ComposeFragment extends DialogFragment {
         btnTweet = (Button) view.findViewById(R.id.btnTweet);
         tvUsername = (TextView)view.findViewById(R.id.tvFragmentUserName);
         ivProfileImage = (ImageView) view.findViewById(R.id.ivFragmentProfileImage);
-
+        tvCharCount = (TextView)view.findViewById(R.id.tvCharCount);
 
         client.verifyCredentials(new JsonHttpResponseHandler() {
             @Override
@@ -114,6 +116,17 @@ public class ComposeFragment extends DialogFragment {
                         Log.d("debug","Tweet post failed");
                     }
                 },updateStatus);
+            }
+        });
+
+        etStatus.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                int length = etStatus.getText().length();
+                int maxLength = 140;
+                int remaining = maxLength - length;
+                tvCharCount.setText(remaining+"");
+                return false;
             }
         });
 
