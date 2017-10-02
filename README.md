@@ -50,6 +50,8 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
+Bug fix, screenname was missing in timeline [fixed]
+<img src='https://i.imgur.com/NdRMa4K.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://i.imgur.com/jrhAaiZ.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 

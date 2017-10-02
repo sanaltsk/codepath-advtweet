@@ -50,7 +50,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Tweet tweet = mTweets.get(position);
         //populate the view according to this data;
-        holder.tvUsername.setText(tweet.user.name);
+        holder.tvUsername.setText("@"+tweet.user.screenName);
+        holder.tvName.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
         holder.tvTime.setText(getRelativeTimeAgo(tweet.createdAt));
         Glide.with(context)
@@ -69,6 +70,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvTime;
+        public TextView tvName;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +81,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvUsername = (TextView) itemView.findViewById(R.id.tvFragmentUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
             itemView.setOnClickListener(this);
         }
 
