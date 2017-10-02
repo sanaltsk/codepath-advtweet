@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -7,28 +7,21 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
+import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.apps.restclienttemplate.models.User;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import static com.codepath.apps.restclienttemplate.R.id.ivTweetDetailProfileImage;
-import static com.codepath.apps.restclienttemplate.R.id.tvTweetDetailName;
-
-public class DetailTweetActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
+public class DetailTweetActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate {
     TextView tvTweetDetailUsername;
 
     @Override

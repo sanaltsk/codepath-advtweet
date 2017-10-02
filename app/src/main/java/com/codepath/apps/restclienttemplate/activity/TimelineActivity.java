@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.activity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -15,16 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
+import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TwitterApp;
+import com.codepath.apps.restclienttemplate.client.TwitterClient;
 import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +36,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static com.codepath.apps.restclienttemplate.R.id.swipeContainer;
 
-public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
+public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate {
     // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
     private Long lastTweetId = 0L;

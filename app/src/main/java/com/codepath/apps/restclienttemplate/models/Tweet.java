@@ -4,7 +4,7 @@ package com.codepath.apps.restclienttemplate.models;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.codepath.apps.restclienttemplate.MyDatabase;
+import com.codepath.apps.restclienttemplate.database.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;

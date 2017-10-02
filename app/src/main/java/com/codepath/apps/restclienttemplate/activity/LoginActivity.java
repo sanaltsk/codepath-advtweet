@@ -1,15 +1,14 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.client.TwitterClient;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
-import com.raizlabs.android.dbflow.config.FlowConfig;
-import com.raizlabs.android.dbflow.config.FlowManager;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
