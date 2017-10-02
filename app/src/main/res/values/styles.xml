@@ -13,5 +13,6 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <color name="twitter_color">#0084b4</color>
+    <color name="twitter_logo_blue">#00aced</color>
 
 </resources>

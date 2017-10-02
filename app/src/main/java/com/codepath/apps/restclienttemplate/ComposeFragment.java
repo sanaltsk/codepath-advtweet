@@ -48,6 +48,7 @@ public class ComposeFragment extends DialogFragment {
     private User user;
     private TextView tvCharCount;
     private TextView tvComposeTitle;
+    private OnSuccessTweetUpdate mTweetUpdate;
     public ComposeFragment() {
     }
 

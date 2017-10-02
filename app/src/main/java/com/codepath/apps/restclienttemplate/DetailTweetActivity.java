@@ -28,7 +28,7 @@ import java.util.Locale;
 import static com.codepath.apps.restclienttemplate.R.id.ivTweetDetailProfileImage;
 import static com.codepath.apps.restclienttemplate.R.id.tvTweetDetailName;
 
-public class DetailTweetActivity extends AppCompatActivity {
+public class DetailTweetActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
     TextView tvTweetDetailUsername;
 
     @Override
@@ -93,5 +93,9 @@ public class DetailTweetActivity extends AppCompatActivity {
         }
 
         return relativeDate;
+    }
+
+    @Override
+    public void onFinishTweetCompose(Tweet tweet) {
     }
 }
