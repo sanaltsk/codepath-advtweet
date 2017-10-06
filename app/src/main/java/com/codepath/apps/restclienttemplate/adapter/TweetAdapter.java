@@ -22,18 +22,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by sanal on 9/29/17.
- */
-
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     Context context;
     private List<Tweet> mTweets;
-    //Pass tweets array to constructor
     public TweetAdapter(List<Tweet> tweets) {
         mTweets = tweets;
     }
-    //for each row inflate layout and pass to viewholder class
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,7 +39,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     }
 
 
-    //bind values based on position of the element
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Tweet tweet = mTweets.get(position);

@@ -5,8 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
 
+import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.client.TwitterClient;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -25,25 +28,37 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class HomeTimelineFragment extends FragmentTweetList {
-    private TwitterClient client;
     private Long lastTweetId = 0L;
-
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        client = TwitterApp.getRestClient();
         fetchTimelineAsync();
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                lastTweetId = 0L;
+                fetchTimelineAsync();
+            }
+        });
+    }
+
     public void fetchTimelineAsync() {
+        TwitterClient client = TwitterApp.getRestClient();
+
         if (isNetworkAvailable()) {
             client.getHomeTimeline(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                     Log.d("debug", response.toString());
                     lastTweetId = addItems(response, lastTweetId);
-//                    swipeRefreshLayout.setRefreshing(false);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override

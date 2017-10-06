@@ -29,7 +29,6 @@ public class DetailTweetActivity extends AppCompatActivity implements ComposeFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tweet);
 
-//        Tweet tweet = (Tweet) getIntent().getParcelableExtra("tweet");
         Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         if(tweet!=null) {
             Log.d("debug",tweet.toString());

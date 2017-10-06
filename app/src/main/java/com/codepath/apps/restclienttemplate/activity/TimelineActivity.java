@@ -16,12 +16,10 @@ import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollLi
 
 
 public class TimelineActivity extends AppCompatActivity {
-    // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
 
     private FragmentTweetList fragmentTweetList;
     private FloatingActionButton fabCompose;
-//    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +34,6 @@ public class TimelineActivity extends AppCompatActivity {
                 composeMessage();
             }
         });
-        /*swipeRefreshLayout = (SwipeRefreshLayout) findViewById(swipeContainer);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                lastTweetId = 0L;
-                fetchTimelineAsync();
-            }
-        });*/
     }
 
     @Override

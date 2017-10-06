@@ -29,16 +29,11 @@ public class FragmentTweetList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         View v =  inflater.inflate(R.layout.fragment_tweet_list, parent, false);
-        //find the recycler view
         rvTweets = (RecyclerView)v.findViewById(R.id.rvTweet);
-        //init the arraylist
         tweets = new ArrayList<>();
-        //construct the adapter from datasource
         adapter = new TweetAdapter(tweets);
 
-        //recyclerview setup (layoutmanger,use adapter)
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvTweets.setLayoutManager(linearLayoutManager);
         rvTweets.setAdapter(adapter);
