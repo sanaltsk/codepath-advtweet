@@ -2,13 +2,17 @@ package com.codepath.apps.restclienttemplate.activity;
 
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.codepath.apps.restclienttemplate.adapter.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.fragment.FragmentTweetList;
@@ -18,14 +22,12 @@ import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollLi
 public class TimelineActivity extends AppCompatActivity {
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    private FragmentTweetList fragmentTweetList;
     private FloatingActionButton fabCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        fragmentTweetList = (FragmentTweetList) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
 
         fabCompose = (FloatingActionButton) findViewById(R.id.fabCompose);
         fabCompose.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +36,11 @@ public class TimelineActivity extends AppCompatActivity {
                 composeMessage();
             }
         });
+
+        ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
+        vp.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(), this));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vp);
     }
 
     @Override
