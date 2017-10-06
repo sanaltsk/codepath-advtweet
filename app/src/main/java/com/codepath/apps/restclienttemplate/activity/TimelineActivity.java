@@ -1,39 +1,18 @@
 package com.codepath.apps.restclienttemplate.activity;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.TwitterApp;
-import com.codepath.apps.restclienttemplate.client.TwitterClient;
-import com.codepath.apps.restclienttemplate.adapter.TweetAdapter;
 import com.codepath.apps.restclienttemplate.fragment.FragmentTweetList;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
-import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -50,14 +29,14 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         fragmentTweetList = (FragmentTweetList) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
 
-        /*fabCompose = (FloatingActionButton) findViewById(R.id.fabCompose);
+        fabCompose = (FloatingActionButton) findViewById(R.id.fabCompose);
         fabCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 composeMessage();
             }
         });
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(swipeContainer);
+        /*swipeRefreshLayout = (SwipeRefreshLayout) findViewById(swipeContainer);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,8 +46,6 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });*/
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
