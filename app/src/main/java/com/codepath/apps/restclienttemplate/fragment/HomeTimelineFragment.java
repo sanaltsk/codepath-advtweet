@@ -28,8 +28,6 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class HomeTimelineFragment extends FragmentTweetList {
-    private Long lastTweetId = 0L;
-    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,44 +37,6 @@ public class HomeTimelineFragment extends FragmentTweetList {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                lastTweetId = 0L;
-                fetchTimelineAsync();
-            }
-        });
-    }
 
-    public void fetchTimelineAsync() {
-        TwitterClient client = TwitterApp.getRestClient();
-
-        if (isNetworkAvailable()) {
-            client.getHomeTimeline(new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                    Log.d("debug", response.toString());
-                    lastTweetId = addItems(response, lastTweetId);
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                }
-            },lastTweetId);
-        } else {
-            List<Tweet> tweetList = SQLite.select().from(Tweet.class).queryList();
-            Collections.reverse(tweetList);
-            tweets.addAll(tweetList);
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

@@ -38,8 +38,8 @@ public class MentionsTimelineFragment extends FragmentTweetList {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                     Log.d("debug", response.toString());
-                    lastTweetId = addItems(response, lastTweetId);
-//                    swipeRefreshLayout.setRefreshing(false);
+                    addItems(response);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
