@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.activity;
 
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.codepath.apps.restclienttemplate.ProfileActivity;
 import com.codepath.apps.restclienttemplate.adapter.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.R;
@@ -29,14 +31,6 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        fabCompose = (FloatingActionButton) findViewById(R.id.fabCompose);
-        fabCompose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                composeMessage();
-            }
-        });
-
         ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
         vp.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(), this));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -49,21 +43,19 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.miCompose) {
-            composeMessage();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onProfileView(MenuItem item) {
+        Log.d("debug","profileview");
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 
-    private void composeMessage() {
+    public void onTweet(MenuItem item) {
         Log.d("debug","compose");
         FragmentManager fm = getSupportFragmentManager();
         ComposeFragment composeFragment = ComposeFragment.newInstance(null);
         composeFragment.show(fm, "fragment_compose");
     }
+
 
     //TODO
     /* @Override
