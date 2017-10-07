@@ -15,10 +15,12 @@ import android.view.MenuItem;
 import com.codepath.apps.restclienttemplate.adapter.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.fragment.HomeTimelineFragment;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
     private EndlessRecyclerViewScrollListener scrollListener;
 
     private FloatingActionButton fabCompose;
@@ -54,12 +56,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-    //TODO
-    /* @Override
     public void onFinishTweetCompose(Tweet tweet) {
-        tweets.add(0,tweet);
-        adapter.notifyDataSetChanged();
-    } */
+        Log.d("debug",tweet.toString());
+    }
 
 
 }

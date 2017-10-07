@@ -32,6 +32,7 @@ public class HomeTimelineFragment extends FragmentTweetList {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         fetchTimelineAsync();
     }
 
