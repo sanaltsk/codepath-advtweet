@@ -1,8 +1,11 @@
 package com.codepath.apps.restclienttemplate.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -17,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.activity.DetailTweetActivity;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.activity.ProfileActivity;
+import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
@@ -68,6 +72,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public TextView tvBody;
         public TextView tvTime;
         public TextView tvName;
+        public ImageView ivReply;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -79,6 +84,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
+            ivReply = (ImageView) itemView.findViewById(R.id.ivReply);
+            ivReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fm = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
+                    ComposeFragment composeFragment = ComposeFragment.newInstance(tvUsername.getText().toString());
+                    composeFragment.show(fm, "fragment_compose");
+                }
+            });
             ivProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

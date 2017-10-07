@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="140dp"
     android:layout_margin="5dp">
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="10dp"
         app:srcCompat="@android:color/black" />
 
@@ -29,22 +29,22 @@
         android:id="@+id/tvFragmentUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="12sp"
+        android:layout_alignStart="@+id/tvBody"
         android:layout_below="@+id/tvName"
-        android:layout_alignStart="@+id/tvBody" />
+        android:text="TextView"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:autoLink="all"
-        android:text="TextView"
-        android:layout_marginStart="7dp"
         android:layout_below="@+id/tvFragmentUserName"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:layout_marginTop="6dp" />
+        android:autoLink="all"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvTime"
@@ -54,4 +54,21 @@
         android:layout_alignTop="@+id/tvFragmentUserName"
         android:text="TextView"
         android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/tvTime"
+        app:srcCompat="@drawable/ic_star_border_black_24dp" />
+
+    <ImageView
+        android:id="@+id/ivReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_keyboard_backspace_black_24dp" />
+
 </RelativeLayout>
