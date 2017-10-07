@@ -31,6 +31,15 @@ public class User extends BaseModel implements Serializable{
     public String screenName;
 
     @Column
+    public String tagLine;
+
+    @Column
+    public int followingCount;
+
+    @Column
+    public int followersCount;
+
+    @Column
     public String profileImageUrl;
 
     public User() {
@@ -43,6 +52,9 @@ public class User extends BaseModel implements Serializable{
         user.uid = jsonObject.getLong("id");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url");
+        user.tagLine = jsonObject.getString("description");
+        user.followersCount = jsonObject.getInt("followers_count");
+        user.followingCount = jsonObject.getInt("friends_count");
         return user;
     }
 
