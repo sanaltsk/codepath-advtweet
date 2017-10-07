@@ -11,13 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.codepath.apps.restclienttemplate.ProfileActivity;
 import com.codepath.apps.restclienttemplate.adapter.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragment.ComposeFragment;
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.fragment.FragmentTweetList;
 import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollListener;
 
 
