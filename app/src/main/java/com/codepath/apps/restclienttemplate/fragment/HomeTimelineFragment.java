@@ -32,10 +32,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class HomeTimelineFragment extends FragmentTweetList {
     private Long lastTweetId = 0L;
+    TwitterClient client;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        client = TwitterApp.getRestClient();
         fetchTimelineAsync();
     }
 
@@ -59,7 +61,6 @@ public class HomeTimelineFragment extends FragmentTweetList {
     }
 
     public void fetchTimelineAsync() {
-        TwitterClient client = TwitterApp.getRestClient();
         if (isNetworkAvailable()) {
             client.getHomeTimeline(new JsonHttpResponseHandler() {
                 @Override
