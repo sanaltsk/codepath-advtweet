@@ -65,7 +65,6 @@ public class FragmentTweetList extends Fragment {
     public Long addItems(JSONArray response) {
         adapter.clear();
         Long lastTweetId = 0L;
-        ArrayList<Tweet> renderTweets = new ArrayList<>();
         //iterate through json array
         for (int i = 0; i < response.length(); i++) {
             //for each entry deserialise the item
