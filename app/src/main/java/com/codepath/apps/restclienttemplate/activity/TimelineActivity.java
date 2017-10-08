@@ -21,7 +21,7 @@ import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollLi
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 
-public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate{
+public class TimelineActivity extends AppCompatActivity{
     private EndlessRecyclerViewScrollListener scrollListener;
 
     private FloatingActionButton fabCompose;
@@ -57,11 +57,4 @@ public class TimelineActivity extends AppCompatActivity implements ComposeFragme
         ComposeFragment composeFragment = ComposeFragment.newInstance(null);
         composeFragment.show(fm, "fragment_compose");
     }
-
-
-    public void onFinishTweetCompose(Tweet tweet) {
-        Log.d("debug",tweet.toString());
-    }
-
-
 }
