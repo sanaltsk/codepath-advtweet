@@ -36,8 +36,8 @@ import cz.msebera.android.httpclient.Header;
  * Created by sanal on 10/6/17.
  */
 
-public class FragmentTweetList extends Fragment implements ComposeFragment.OnSuccessTweetUpdateListener {
-    private TweetAdapter adapter;
+public class FragmentTweetList extends Fragment {
+    TweetAdapter adapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -89,13 +89,7 @@ public class FragmentTweetList extends Fragment implements ComposeFragment.OnSuc
         tweets.addAll(renderTweets);
         Log.d("debug", "tweet size" + tweets.size());
         //notify adapter
-        adapter.notifyItemInserted(tweets.size());
+        adapter.notifyItemInserted(tweets.size()-1);
         return lastTweetId;
-    }
-
-    @Override
-    public void onFinishTweetCompose(Tweet tweet) {
-        tweets.add(0,tweet);
-        adapter.notifyItemInserted(0);
     }
 }

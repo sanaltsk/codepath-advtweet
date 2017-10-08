@@ -12,7 +12,7 @@ import com.codepath.apps.restclienttemplate.fragment.MentionsTimelineFragment;
  * Created by sanal on 10/6/17.
  */
 
-public class TweetsPagerAdapter extends FragmentPagerAdapter {
+public class TweetsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     private String tabTitles[] = new String[] {"Home", "Mentions" };
     private Context context;

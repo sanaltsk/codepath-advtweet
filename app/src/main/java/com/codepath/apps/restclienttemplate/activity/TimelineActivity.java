@@ -21,10 +21,11 @@ import com.codepath.apps.restclienttemplate.listener.EndlessRecyclerViewScrollLi
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 
-public class TimelineActivity extends AppCompatActivity{
+public class TimelineActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdateListener{
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    private FloatingActionButton fabCompose;
+    TweetsPagerAdapter tweetsPagerAdapter;
+    ViewPager vp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class TimelineActivity extends AppCompatActivity{
         setContentView(R.layout.activity_timeline);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
-        vp.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(), this));
+        tweetsPagerAdapter = new TweetsPagerAdapter(getSupportFragmentManager(), this);
+        vp = (ViewPager) findViewById(R.id.viewpager);
+        vp.setAdapter(tweetsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vp);
     }
@@ -56,5 +57,12 @@ public class TimelineActivity extends AppCompatActivity{
         FragmentManager fm = getSupportFragmentManager();
         ComposeFragment composeFragment = ComposeFragment.newInstance(null);
         composeFragment.show(fm, "fragment_compose");
+    }
+
+    @Override
+    public void onFinishTweetCompose(Tweet tweet) {
+        HomeTimelineFragment fragment = (HomeTimelineFragment) tweetsPagerAdapter.getRegisteredFragment(0);
+        fragment.insertTweetAtTop(tweet);
+        vp.setCurrentItem(0);
     }
 }

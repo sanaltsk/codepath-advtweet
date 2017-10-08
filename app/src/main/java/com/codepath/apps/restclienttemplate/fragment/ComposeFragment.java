@@ -160,7 +160,8 @@ public class ComposeFragment extends DialogFragment {
                         tweet.createdAt = sf.format(dt);
                         Toast.makeText(getContext(),"Tweet posted successfully!",Toast.LENGTH_LONG).show();
                         Log.d("debug","Posted successfully" + tweet.toString());
-                        OnSuccessTweetUpdateListener listener = (OnSuccessTweetUpdateListener) getActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
+//                        OnSuccessTweetUpdateListener listener = (OnSuccessTweetUpdateListener) getActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
+                        OnSuccessTweetUpdateListener listener = (OnSuccessTweetUpdateListener) getActivity();
                         SharedPreferences.Editor edite = pref.edit();
                         edite.remove("tweet");
                         edite.commit();

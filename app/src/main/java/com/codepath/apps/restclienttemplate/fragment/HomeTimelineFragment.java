@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
@@ -87,4 +88,11 @@ public class HomeTimelineFragment extends FragmentTweetList {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    public void insertTweetAtTop(Tweet tweet) {
+        tweets.add(0,tweet);
+//        adapter.notifyItemInserted(1);
+        adapter.notifyDataSetChanged();
+    }
+
 }
