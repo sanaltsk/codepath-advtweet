@@ -108,7 +108,7 @@ public class ComposeFragment extends DialogFragment {
 
         if(!TextUtils.isEmpty(replyTo)){
             String reply = replyTo;
-            etStatus.setText(reply+" ");
+            etStatus.setText("@"+reply+" ");
             etStatus.setSelection(etStatus.getText().length());
             tvComposeTitle.setText("Reply " + reply);
             int remainingChar = 140-reply.length()-1;

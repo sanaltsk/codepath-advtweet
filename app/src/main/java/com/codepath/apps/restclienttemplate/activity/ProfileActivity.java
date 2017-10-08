@@ -54,6 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
                         getSupportActionBar().setTitle("@" + user.screenName);
 
                         populateUserHeadline(user);
+                        spinner.setVisibility(View.GONE);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -68,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity {
                         User user = User.fromJSON(response);
                         getSupportActionBar().setTitle("@" + user.screenName);
                         populateUserHeadline(user);
+                        spinner.setVisibility(View.GONE);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -78,7 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flContainer, userTimelineFragment);
         ft.commit();
-        spinner.setVisibility(View.GONE);
     }
 
     private void populateUserHeadline(User user) {

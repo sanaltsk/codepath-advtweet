@@ -51,7 +51,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Tweet tweet = mTweets.get(position);
         //populate the view according to this data;
-        holder.tvUsername.setText("@"+tweet.user.screenName);
+        holder.tvUsername.setText(tweet.user.screenName);
         holder.tvName.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
         holder.tvTime.setText(getRelativeTimeAgo(tweet.createdAt));
