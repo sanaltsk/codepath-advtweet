@@ -95,9 +95,7 @@ public class FragmentTweetList extends Fragment implements ComposeFragment.OnSuc
 
     @Override
     public void onFinishTweetCompose(Tweet tweet) {
-        Log.d("debug",tweets.size()+"");
         tweets.add(0,tweet);
-        Log.d("debug",tweets.size()+"");
-        adapter.notifyItemInserted(tweets.size());
+        adapter.notifyItemInserted(0);
     }
 }
