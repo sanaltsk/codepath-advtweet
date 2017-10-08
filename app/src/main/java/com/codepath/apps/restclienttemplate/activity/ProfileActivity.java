@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
         setContentView(R.layout.activity_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         client = TwitterApp.getRestClient();
         if(TextUtils.isEmpty(screenName)) {
@@ -70,9 +73,6 @@ public class ProfileActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flContainer, userTimelineFragment);
         ft.commit();
-
-
-
     }
 
     private void populateUserHeadline(User user) {

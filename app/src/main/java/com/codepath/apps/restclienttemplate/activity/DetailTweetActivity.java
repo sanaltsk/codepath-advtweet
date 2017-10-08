@@ -4,6 +4,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,9 @@ public class DetailTweetActivity extends AppCompatActivity implements ComposeFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tweet);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         if(tweet!=null) {
