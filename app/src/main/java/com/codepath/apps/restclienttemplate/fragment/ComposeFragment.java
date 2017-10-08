@@ -49,7 +49,7 @@ public class ComposeFragment extends DialogFragment {
     private User user;
     private TextView tvCharCount;
     private TextView tvComposeTitle;
-    private OnSuccessTweetUpdate mTweetUpdate;
+    private OnSuccessTweetUpdateListener mTweetUpdate;
     public ComposeFragment() {
     }
 
@@ -160,7 +160,7 @@ public class ComposeFragment extends DialogFragment {
                         tweet.createdAt = sf.format(dt);
                         Toast.makeText(getContext(),"Tweet posted successfully!",Toast.LENGTH_LONG).show();
                         Log.d("debug","Posted successfully" + tweet.toString());
-                        OnSuccessTweetUpdate listener = (OnSuccessTweetUpdate)getActivity();
+                        OnSuccessTweetUpdateListener listener = (OnSuccessTweetUpdateListener) getActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
                         SharedPreferences.Editor edite = pref.edit();
                         edite.remove("tweet");
                         edite.commit();
@@ -189,7 +189,7 @@ public class ComposeFragment extends DialogFragment {
 
     }
 
-    public interface OnSuccessTweetUpdate {
+    public interface OnSuccessTweetUpdateListener {
         void onFinishTweetCompose(Tweet tweet);
     }
 

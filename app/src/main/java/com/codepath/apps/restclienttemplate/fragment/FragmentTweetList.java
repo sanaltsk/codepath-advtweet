@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
@@ -35,7 +36,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by sanal on 10/6/17.
  */
 
-public class FragmentTweetList extends Fragment {
+public class FragmentTweetList extends Fragment implements ComposeFragment.OnSuccessTweetUpdateListener {
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
@@ -64,7 +65,7 @@ public class FragmentTweetList extends Fragment {
     public Long addItems(JSONArray response) {
         adapter.clear();
         Long lastTweetId = 0L;
-
+        ArrayList<Tweet> renderTweets = new ArrayList<>();
         //iterate through json array
         for (int i = 0; i < response.length(); i++) {
             //for each entry deserialise the item
@@ -90,5 +91,13 @@ public class FragmentTweetList extends Fragment {
         //notify adapter
         adapter.notifyItemInserted(tweets.size());
         return lastTweetId;
+    }
+
+    @Override
+    public void onFinishTweetCompose(Tweet tweet) {
+        Log.d("debug",tweets.size()+"");
+        tweets.add(0,tweet);
+        Log.d("debug",tweets.size()+"");
+        adapter.notifyItemInserted(tweets.size());
     }
 }

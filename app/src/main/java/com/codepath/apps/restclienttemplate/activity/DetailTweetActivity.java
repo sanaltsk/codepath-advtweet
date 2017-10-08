@@ -22,7 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class DetailTweetActivity extends AppCompatActivity implements ComposeFragment.OnSuccessTweetUpdate {
+public class DetailTweetActivity extends AppCompatActivity {
     TextView tvTweetDetailUsername;
 
     @Override
@@ -89,9 +89,5 @@ public class DetailTweetActivity extends AppCompatActivity implements ComposeFra
         }
 
         return relativeDate;
-    }
-
-    @Override
-    public void onFinishTweetCompose(Tweet tweet) {
     }
 }
