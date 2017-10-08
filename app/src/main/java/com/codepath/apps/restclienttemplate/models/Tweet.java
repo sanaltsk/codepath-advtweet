@@ -67,8 +67,6 @@ public class Tweet extends BaseModel implements Serializable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("Debug","Tweets " + tweet.toString());
-
         return tweet;
     }
 
